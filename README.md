@@ -12,27 +12,14 @@ Ensure you have the following installed:
 ---
 
 ## Running Locally
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/jordojordo/wasm-prime.git
-   cd wasm-prime
-   ```
-2. Install dependencies:
+1. Install the dependencies, compile, and serve:
    ```sh
    pnpm install
+   pnpm asbuild
+   pnpm start
    ```
-3. Open in browser
-  Navigate to `http://localhost:8080`
-
-## Build
-Compile the AssemblyScript into a WASM module:
-```sh
-pnpm asbuild
-```
-This generates:
-```console
-build/release.wasm
-```
+2. Open in browser
+  Navigate to `http://localhost:3000`
 
 ## Test
 Run unit tests for the WebAssembly module:
