@@ -45,9 +45,8 @@ jobs:
       - name: Create Dist Directory
         run: |
           mkdir -p dist
-          cp -r build/{release.wasm*,release.wat} dist/
+          cp -r build/release.wasm dist/release.wasm
           cp -r index.html dist/
-          cp -r assets dist/ || echo "No assets folder found"
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
