@@ -15,14 +15,26 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Install pnpm via curl
+        run: |
+          export PNPM_HOME="/home/runner/.local/share/pnpm"
+          export PATH="$PNPM_HOME:$PATH"
+          export SHELL="/bin/bash"
+          export ENV="/home/runner/.profile"
+
+          echo "PNPM_HOME=$PNPM_HOME" >> $GITHUB_ENV
+          echo "PATH=$PNPM_HOME:$PATH" >> $GITHUB_ENV
+          echo "SHELL=$SHELL" >> $GITHUB_ENV
+          echo "ENV=$ENV" >> $GITHUB_ENV
+
+          curl -fsSL https://get.pnpm.io/install.sh | sh -
+          pnpm --version
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
           cache: 'pnpm'
-
-      - name: Install pnpm
-        run: npm install -g pnpm
 
       - name: Install Dependencies
         run: pnpm install
