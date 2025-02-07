@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WASM Prime Checker</title>
+</head>
+<body>
+  <h1>WASM Prime Checker</h1>
+  <input type="number" id="number" placeholder="Enter a number">
+  <button onclick="checkPrime()">Check</button>
+  <p id="result"></p>
+
+  <script>
+    async function loadWasm() {
+      let instance;
+      const response = await fetch('build/release.wasm');
+
+      await WebAssembly.instantiateStreaming(response).then((obj) => {
+        instance = obj.instance;
+      });
+
+      return instance.exports;
+    }
+
+    async function checkPrime() {
+      const exports = await loadWasm();
+
+      const num = document.getElementById('number').value;
+      
+      const result = exports.isPrime(parseInt(num, 10));
+      document.getElementById('result').innerText = result ? "Prime" : "Not Prime";
+    }
+  </script>
+</body>
+</html>
